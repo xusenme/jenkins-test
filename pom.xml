@@ -48,7 +48,41 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/env/${env}</directory>
+                <includes>
+                    <include>application.properties</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
+
+
+    <profiles>
+        <profile>
+            <id>dev</id><!--执行打包命令时将使用此处的id进行定位-->
+            <properties>
+                <env>dev</env><!--此处为对应的环境放置配置文件的目录，上一步创建的为dev,这里设置为dev。下面两个目录配置参照此处-->
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault><!--此处将dev设置为默认环境-->
+            </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <env>test</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>pro</id>
+            <properties>
+                <env>pro</env>
+            </properties>
+        </profile>
+    </profiles>
 
 
 </project>
